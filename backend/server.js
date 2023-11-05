@@ -3,6 +3,9 @@ const createError = require("http-errors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
+require("dotenv").config();
+console.log(process.env.DATABASE_URL);
+
 const express = require("express");
 const app = express();
 app.use(morgan("dev"));
@@ -10,6 +13,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+const testRoutes = require("./routes/test/index.js")
+app.use("/test", testRoutes);
 
 const PORT = process.env.PORT || 3000;
 
